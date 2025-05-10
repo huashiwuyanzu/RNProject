@@ -2,6 +2,9 @@
 + 查看本地的账号信息：git config user.name
 + 查看本地的邮箱信息：git config user.email
 + 全局配置用户名和邮箱：git config --global user.name "your name"
++ 添加功能：feature: xxx
++ 修复bug：fix: xxx
++ 样式调整：style: xxx
 <br/>
 <br/>
 <br/>
@@ -110,4 +113,11 @@
 + 公共组件：按钮、输入框、标签、分割线等
 + 公共 hooks：useTheme, useLocalData, useTimer
 + 公共工具函数：日期格式化、UUID、数据聚合等
+<br/>
+<br/>
 
+
+# 待解决的问题：
++ tabBar中的icon引入失败
++ list页面中的东西太丑了
++ list的数据量如果庞大，要如何解决？

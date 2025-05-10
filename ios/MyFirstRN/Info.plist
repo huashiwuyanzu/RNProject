@@ -48,5 +48,13 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	
+	<!-- 支持Geolocation定位 -->
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>我们需要访问您的位置以便提供更好的服务。</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>我们需要持续访问您的位置以便提供更好的服务。</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>我们需要在后台访问您的位置以便提供更好的服务。</string>
 </dict>
 </plist>

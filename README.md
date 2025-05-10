@@ -1,97 +1,113 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Git操作指南：
++ 查看本地的账号信息：git config user.name
++ 查看本地的邮箱信息：git config user.email
++ 全局配置用户名和邮箱：git config --global user.name "your name"
+<br/>
+<br/>
+<br/>
 
-# Getting Started
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+# 项目各个模块
+## storage 模块（本地数据库管理）
+📦 职责：
++ 统一封装本地数据操作（可选 AsyncStorage or react-native-mmkv）
++ 结构清晰的数据 schema，如 tasks.json, habits.json, settings.json
 
-## Step 1: Start Metro
+📚 技术点：
++ 本地缓存封装策略（持久化单元设计）
++ 轻量数据库选型：AsyncStorage / SQLite / MMKV
++ 提供统一的 getData / setData 接口
+<br/>
+<br/>
+ 
+## auth 模块（本地身份管理）
+📦 职责：
++ 匿名身份识别（如首次进入自动生成 userId）
++ 记录首次启动状态
++ 存储基础用户偏好（如主题、语言）
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+📚 技术点：
++ UUID 生成与存储
++ AppState 检测是否首次启动
++ 多端数据隔离（用户 ID 为键名）
+<br/>
+<br/>
+ 
 
-To start the Metro dev server, run the following command from the root of your React Native project:
 
-```sh
-# Using npm
-npm start
+## tasks 模块（本地任务管理）
+📦 职责：
++ 任务的增删改查、状态切换（待办/完成）
++ 标签分类、时间筛选、本地排序
 
-# OR using Yarn
-yarn start
-```
+📚 技术点：
++ FlatList + 动态 UI
++ 自定义任务卡片组件
++ 模态框表单 + 表单验证
++ 状态管理（zustand / context）
+<br/>
+<br/>
 
-## Step 2: Build and run your app
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+## pomodoro 模块（离线倒计时）
+📦 职责：
++ 倒计时逻辑管理（番茄钟 25+5）
++ 本地通知推送（即使离开 App）
++ 番茄钟记录归档
+  
+📚 技术点：
++ useRef 控制计时器精度
++ react-native-push-notification 本地提醒
++ 应用前后台状态切换（AppState）
++ 振动反馈、音效播放（本地 mp3）
+<br/>
+<br/>
+  
 
-### Android
+## habits 模块（日历打卡）
+📦 职责：
++ 创建/编辑习惯
++ 每天打卡 + 日历展示
++ 连续打卡天数统计
 
-```sh
-# Using npm
-npm run android
+📚 技术点：
++ react-native-calendars 日历组件
++ 每日标记 UI 高亮
++ 连续天数判断逻辑（与日期匹配）
+<br/>
+<br/>
 
-# OR using Yarn
-yarn android
-```
 
-### iOS
+## analytics 模块（离线图表）
+📦 职责：
++ 本地完成率、打卡趋势图
++ 饼图/柱状图展示数据
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
+📚 技术点：
++ victory-native + react-native-svg 图表组件
++ 本地数据整合、日期聚合算法
++ 图表交互（点击查看数据）
+<br/>
+<br/>
 
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
 
-```sh
-bundle install
-```
+## settings 模块（用户偏好设置）
+📦 职责：
++ 主题（暗黑/浅色）
++ 清空数据（初始化 App）
++ 通知权限设置
 
-Then, and every time you update your native dependencies, run:
+📚 技术点：
++ Appearance API 动态主题
++ 权限请求（通知权限、震动权限）
++ Alert + 交互式确认操作
+<br/>
+<br/>
 
-```sh
-bundle exec pod install
-```
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
+## shared 模块（复用组件 & 工具）
+📦 职责：
++ 公共组件：按钮、输入框、标签、分割线等
++ 公共 hooks：useTheme, useLocalData, useTimer
++ 公共工具函数：日期格式化、UUID、数据聚合等
 
-```sh
-# Using npm
-npm run ios
-
-# OR using Yarn
-yarn ios
-```
-
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
-
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
-
-## Step 3: Modify your app
-
-Now that you have successfully run the app, let's make changes!
-
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
-
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
-
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
